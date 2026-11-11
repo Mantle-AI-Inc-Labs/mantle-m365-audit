@@ -1,0 +1,65 @@
+name: Upstream Watch
+
+# Weekly: compare upstream Galvnyz/M365-Assess latest release against our pinned
+# tag in mantle/UPSTREAM_PIN.md. If drift is detected, open a GitHub issue so
+# the Mantle sync workflow (mantle/SYNC_CHECKLIST.md) can be walked.
+# Never auto-merges.
+
+on:
+  schedule:
+    - cron: '0 13 * * 1'  # Monday 13:00 UTC
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Compare pinned tag against upstream release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          PINNED=$(grep -Eo 'tag `v[0-9]+\.[0-9]+\.[0-9]+`' mantle/UPSTREAM_PIN.md | head -1 | tr -d '`' | sed 's/tag //')
+          LATEST=$(gh release view --repo Galvnyz/M365-Assess --json tagName -q .tagName)
+
+          echo "Pinned: ${PINNED}"
+          echo "Latest upstream: ${LATEST}"
+
+          if [ "${PINNED}" = "${LATEST}" ]; then
+            echo "Pin is current. No action needed."
+            exit 0
+          fi
+
+          # Avoid opening duplicate issues for the same upstream version.
+          EXISTING=$(gh issue list --label upstream-sync --state open \
+            --search "in:title ${LATEST}" --json number --jq 'length')
+          if [ "${EXISTING}" -gt 0 ]; then
+            echo "Issue already exists for ${LATEST}."
+            exit 0
+          fi
+
+          BODY=$(cat <<EOF
+          Upstream **Galvnyz/M365-Assess** has a new release.
+
+          - Pinned: \`${PINNED}\`
+          - Latest: \`${LATEST}\`
+          - Compare: https://github.com/Galvnyz/M365-Assess/compare/${PINNED}...${LATEST}
+          - Release notes: https://github.com/Galvnyz/M365-Assess/releases/tag/${LATEST}
+
+          Walk \`mantle/SYNC_CHECKLIST.md\` before merging. Do not auto-merge.
+          EOF
+          )
+
+          gh issue create \
+            --title "Upstream release available: ${LATEST}" \
+            --body "${BODY}" \
+            --label upstream-sync
