@@ -16,6 +16,19 @@ Entries are reverse-chronological. Use H2 for each divergence.
 
 ---
 
+## Bridge JSON setting and recommendedValue fields
+
+- **Files:**
+  - `src/M365-Assess/Common/Export-AssessmentBridgeJson.ps1` (two fields per finding)
+  - `src/M365-Assess/schemas/assessment-bridge.schema.json` (two optional nullable properties)
+  - `tests/Mantle/Export-AssessmentBridgeJson.MantleEnrichments.Tests.ps1` (new)
+- **Upstream version last reviewed:** tag `v2.14.0` (`e891bcb69b6b5d99e60a799651581c975840b2b4`)
+- **Rationale:** mantle-m365-render's client appendix needs to say what each failed check found and what it expected. The bridge carried `currentValue` but not the collector's `Setting` or `RecommendedValue`, which the enriched rows already hold, so a row could only restate the control name ("Ensure ...") without showing that it failed or why.
+- **Cost of carrying:** Low. Additive fields; `schemaVersion` stays `1.1` because consumers that ignore unknown properties are unaffected. Conflicts are possible if upstream reshapes the per-finding object in the exporter.
+- **Upstream issue / PR:** None opened yet; generally useful to other bridge consumers.
+- **Introduced:** 2026-11-17, fork PR #2 (`mantle/graph-session-reuse` branch)
+- **Review date:** 2027-02-17
+
 ## Invoke-M365Assessment -AdditionalGraphScopes and -KeepGraphConnection
 
 - **Files:**
