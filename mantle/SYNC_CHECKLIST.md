@@ -1,4 +1,4 @@
-# Upstream Sync Impact Assessment — mantle-m365-audit
+# Upstream Sync Impact Assessment — mantle-m365-safeguards-audit
 
 Walk this checklist for every upstream release before merging into `main`.
 
@@ -16,17 +16,17 @@ Walk this checklist for every upstream release before merging into `main`.
 
 ## 3. Context-weighting changes
 
-- [ ] Does the upstream release introduce new check categories that `mantle-m365-render` needs to handle in context-based weighting (HIPAA overlay, life-sciences overlay, industry overlays)?
-- [ ] If yes: open a parallel PR in `mantle-m365-render` and reference it from this sync PR.
+- [ ] Does the upstream release introduce new check categories that `mantle-m365-assessment` needs to handle in context-based weighting (HIPAA overlay, life-sciences overlay, industry overlays)?
+- [ ] If yes: open a parallel PR in `mantle-m365-assessment` and reference it from this sync PR.
 
 ## 4. Adapter rendering
 
-- [ ] Does the upstream release change the `assessment-bridge.schema.json` schema or introduce new finding section types that `mantle-m365-render` doesn't render?
+- [ ] Does the upstream release change the `assessment-bridge.schema.json` schema or introduce new finding section types that `mantle-m365-assessment` doesn't render?
 - [ ] If yes: bump the adapter schema version and update the Findings-Appendix renderer.
 
 ## 5. Regression test
 
-- [ ] Run the sync branch against the reference-tenant snapshot corpus in `mantle-m365-render/tests/fixtures/`.
+- [ ] Run the sync branch against the reference-tenant snapshot corpus in `mantle-m365-assessment/tests/fixtures/`.
 - [ ] Zero regressions required before merge.
 
 ## Merge workflow
