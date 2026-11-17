@@ -97,6 +97,9 @@ function Export-AssessmentBridgeJson {
             frameworks   = @($frameworks | Where-Object { $null -ne $_ })
             currentValue = if ($isSensitive) { '[REDACTED]' } else { $f.CurrentValue }
             remediation  = $f.Remediation
+            # Mantle enrichment (mantle/DIVERGENCES.md): lets report consumers state what was found vs. expected.
+            setting          = if ($f.PSObject.Properties['Setting']) { $f.Setting } else { $null }
+            recommendedValue = if ($f.PSObject.Properties['RecommendedValue']) { $f.RecommendedValue } else { $null }
         }
     }
 
