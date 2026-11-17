@@ -1,5 +1,5 @@
 > [!IMPORTANT]
-> **Mantle fork.** For client engagements, do not run this assessment directly. Use `mantle-engagement run` from [mantle-m365-render](https://github.com/Mantle-AI-Inc-Labs/mantle-m365-render#start-here), which runs it together with mantle-m365-docs under one sign-in and builds the Mantle deliverables. Run this repo directly only to develop or verify Mantle patches and upstream syncs; see [`mantle/`](mantle/). Everything below this note is the upstream README.
+> **Mantle fork.** For client engagements, do not run this assessment directly. Use `mantle-engagement run` from [mantle-m365-assessment](https://github.com/Mantle-AI-Inc-Labs/mantle-m365-assessment#start-here), which runs it together with mantle-m365-docs under one sign-in and builds the Mantle deliverables. Run this repo directly only to develop or verify Mantle patches and upstream syncs; see [`mantle/`](mantle/). Everything below this note is the upstream README.
 
 # M365 Assess
 

@@ -1,4 +1,4 @@
-# Upstream Pin — mantle-m365-audit
+# Upstream Pin — mantle-m365-safeguards-audit
 
 ## Primary upstream
 
