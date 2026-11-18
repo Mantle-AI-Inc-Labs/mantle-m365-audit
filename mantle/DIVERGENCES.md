@@ -35,7 +35,7 @@ Entries are reverse-chronological. Use H2 for each divergence.
 - **Upstream version last reviewed:** tag `v2.14.0` (`e891bcb69b6b5d99e60a799651581c975840b2b4`)
 - **Rationale:** mantle-m365-assessment's client appendix needs to say what each failed check found and what it expected. The bridge carried `currentValue` but not the collector's `Setting` or `RecommendedValue`, which the enriched rows already hold, so a row could only restate the control name ("Ensure ...") without showing that it failed or why.
 - **Cost of carrying:** Low. Additive fields; `schemaVersion` stays `1.1` because consumers that ignore unknown properties are unaffected. Conflicts are possible if upstream reshapes the per-finding object in the exporter.
-- **Upstream issue / PR:** None opened yet; generally useful to other bridge consumers.
+- **Upstream issue / PR:** Offered upstream as [Galvnyz/M365-Assess#1047](https://github.com/Galvnyz/M365-Assess/pull/1047) (2026-11-17). Drop this entry when it merges and the pin moves past it.
 - **Introduced:** 2026-11-17, fork PR #2 (`mantle/graph-session-reuse` branch)
 - **Review date:** 2027-02-17
 
@@ -47,6 +47,6 @@ Entries are reverse-chronological. Use H2 for each divergence.
 - **Upstream version last reviewed:** tag `v2.14.0` (`e891bcb69b6b5d99e60a799651581c975840b2b4`)
 - **Rationale:** The Mantle engagement orchestrator (`mantle-engagement` in mantle-m365-assessment) runs this assessment and then mantle-m365-docs against the same tenant with one sign-in. `-AdditionalGraphScopes` adds the docs fork's read scopes to the consent this assessment already requests, and `-KeepGraphConnection` leaves the Graph session open at the end so the orchestrator can pass its token to `Connect-M365Doc -AccessToken`. Without these, the operator signs in twice and the docs run lacks consent for Cloud PC, print, entitlement-management, PIM-eligibility, and information-protection scopes.
 - **Cost of carrying:** Low. Both parameters are additive and default to upstream behavior. Conflicts are possible if upstream reworks the scope-assembly block or the disconnect loop near the end of the script. Pester tests cover parameter declarations and, through `-DryRun`, the scope merge; `-KeepGraphConnection` is verified by the orchestrator's live run.
-- **Upstream issue / PR:** None opened yet. Both parameters are generic enough to propose upstream.
+- **Upstream issue / PR:** Offered upstream as [Galvnyz/M365-Assess#1046](https://github.com/Galvnyz/M365-Assess/pull/1046) (2026-11-17). Drop this entry when it merges and the pin moves past it.
 - **Introduced:** 2026-11-17, fork PR #2 (`mantle/graph-session-reuse` branch)
 - **Review date:** 2027-02-17
