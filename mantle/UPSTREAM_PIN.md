@@ -25,5 +25,5 @@ The CheckID pin is tracked in the upstream M365-Assess codebase via the `TAG` va
 
 1. The weekly upstream-watcher action opens a GitHub issue when a new upstream release is published.
 2. Walk `mantle/SYNC_CHECKLIST.md` for the release.
-3. Create branch `upstream-sync/<vX.Y.Z>`, merge the upstream tag, re-apply all patches from `mantle/DIVERGENCES.md`, run the regression suite.
+3. Create branch `upstream-sync/<vX.Y.Z>` and merge the upstream tag; the Mantle patches on `main` carry forward, so resolve conflicts and run the verification steps in the checklist.
 4. Update this file + open a PR to `main`.
