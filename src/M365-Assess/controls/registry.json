@@ -67783,6 +67783,54 @@
         "rationale": "Failure to route email through Exchange Online mail flow exposes the tenant to: Security control bypass; mail not traversing Exchange Online skips ATP scanning, DLP policies, mail flow rules, and anti-phishing defenses.",
         "scfWeighting": 7
       }
+    },
+    {
+      "checkId": "DEFENDER-MALWARE-001",
+      "name": "Anti-malware policy settings are enforced by a preset security policy",
+      "category": "MALWARE",
+      "collector": "Defender",
+      "hasAutomatedCheck": true,
+      "licensing": {
+        "minimum": "E3"
+      },
+      "frameworks": {},
+      "impactRating": {
+        "severity": "Medium",
+        "rationale": "Preset security policies (Standard or Strict) apply Microsoft's recommended anti-malware settings and keep them current. This check records a policy managed that way in place of the individual anti-malware setting checks, which are not evaluated for it.",
+        "scfWeighting": 5
+      }
+    },
+    {
+      "checkId": "DNS-ZONE-001",
+      "name": "Ensure the DNS zones of accepted domains respond to queries",
+      "category": "DNS",
+      "collector": "DNS",
+      "hasAutomatedCheck": true,
+      "licensing": {
+        "minimum": "E3"
+      },
+      "frameworks": {},
+      "impactRating": {
+        "severity": "High",
+        "rationale": "Failure of a domain's authoritative DNS exposes the tenant to: mail delivery failures, and receivers being unable to retrieve SPF, DKIM, and DMARC records, so spoofed mail for the domain is not checked against them. SPF, DKIM, DMARC, and MX checks are suppressed for affected domains.",
+        "scfWeighting": 7
+      }
+    },
+    {
+      "checkId": "DNS-LOCKDOWN-001",
+      "name": "Non-sending domains are locked down with null SPF, null MX, and enforcing DMARC",
+      "category": "DNS",
+      "collector": "DNS",
+      "hasAutomatedCheck": true,
+      "licensing": {
+        "minimum": "E3"
+      },
+      "frameworks": {},
+      "impactRating": {
+        "severity": "Low",
+        "rationale": "A domain that sends no mail but lacks a null SPF record, a null MX record, and an enforcing DMARC policy can be used to spoof mail that appears to come from the organization.",
+        "scfWeighting": 3
+      }
     }
   ]
 }
